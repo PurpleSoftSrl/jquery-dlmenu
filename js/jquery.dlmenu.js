@@ -123,10 +123,9 @@
     },
     _initEvents: function() {
       var self = this
-      var animatedClasses =
-        self.options.animatedClasses || self.options.animationClasses
 
-      this.$trigger.on('click.dlmenu', function() {
+      var triggerEvent = this.options.triggerOn || 'click'
+      this.$trigger.on(triggerEvent + '.dlmenu', function() {
         if (self.open) {
           self._closeMenu()
         } else {
@@ -135,6 +134,7 @@
         return false
       })
 
+      var animatedClasses = this.options.animatedClasses
       this.$menuItems.on('click.dlmenu', function(event) {
         event.stopPropagation()
 
@@ -183,7 +183,6 @@
           self.options.onLinkClick($item, event)
         }
       })
-
       this.$backs.on('click.dlmenu', function(event) {
         var $this = $(this),
           $submenu = $this.parents('ul.dl-submenu:first'),
