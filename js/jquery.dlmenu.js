@@ -12,7 +12,7 @@
 
   // global
   var Modernizr = window.Modernizr,
-    $body = $('body')
+    $window = $('window')
 
   $.DLMenu = function(options, element) {
     this.$el = $(element)
@@ -39,6 +39,8 @@
     useActiveItemAsLink: false,
     // On close reset the menu to root
     resetOnClose: true,
+    scrollBodyToClose: true,
+    clickOutsideToClose: true,
   }
 
   $.DLMenu.prototype = {
@@ -129,13 +131,6 @@
           self._closeMenu()
         } else {
           self._openMenu()
-          // clicking somewhere else makes the menu close
-          $body
-            .off('click')
-            .children()
-            .on('click.dlmenu', function() {
-              self._closeMenu()
-            })
         }
         return false
       })
@@ -239,6 +234,9 @@
           }
         }
 
+      // Remove the close listeners.
+      $window.off('click.dlmenu scroll.dlmenu')
+
       this.$menu.removeClass('dl-menuopen')
       this.$menu.addClass('dl-menu-toggle')
       this.$trigger.removeClass('dl-active')
@@ -258,10 +256,16 @@
     },
     _openMenu: function() {
       var self = this
-      // clicking somewhere else makes the menu close
-      $body.off('click').on('click.dlmenu', function() {
-        self._closeMenu()
-      })
+      if (this.options.scrollBodyToClose) {
+        $window.one('scroll.dlmenu', function() {
+          self._closeMenu()
+        })
+      }
+      if (this.options.clickOutsideToClose) {
+        $window.one('click.dlmenu', function() {
+          if (!self.$el[0].contains(this)) self._closeMenu()
+        })
+      }
       this.$menu
         .addClass('dl-menuopen dl-menu-toggle')
         .on(this.transEndEventName, function() {
