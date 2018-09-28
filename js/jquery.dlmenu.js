@@ -76,43 +76,46 @@
     },
     _config: function() {
       this.open = false
-      this.$trigger = this.$el.children('.dl-trigger')
-      this.$menu = this.$el.children('ul.dl-menu')
-      this.$menuitems = this.$menu.find('li:not(.dl-back)')
-      this.$el
-        .find('ul.dl-submenu')
-        .prepend(
-          '<li class="dl-back"><a href="#">' +
-            this.options.backLabel +
-            '</a></li>'
-        )
-      this.$back = this.$menu.find('li.dl-back')
+
+      var SEL = this.options.selectors
+      this.$menu = this.$el.find(SEL.menu || '> ul.dl-menu')
+      this.$menuItems = this.$menu.find(SEL.menuItem || 'li:not(.dl-back)')
+      this.$trigger = this.$el.find(SEL.trigger || '> .dl-trigger')
+
+      var $back = $('<li class="dl-back">').append(
+        '<a href="#">' + this.options.backLabel + '</a>'
+      )
+      this.$submenus = this.$el.find(SEL.submenu || 'ul.dl-submenu')
+      this.$backs = this.$submenus.map(function() {
+        return $back
+          .clone()
+          .prependTo(this)
+          .get(0)
+      })
 
       // Set the label text for the back link.
       if (this.options.useActiveItemAsBackLabel) {
-        this.$back.each(function() {
-          var $this = $(this),
-            parentLabel = $this
-              .parents('li:first')
-              .find('a:first')
-              .text()
-
-          $this.find('a').html(parentLabel)
+        this.$backs.each(function() {
+          var $this = $(this)
+          var parentText = $this
+            .parents('li:first')
+            .find('a:first')
+            .text()
+          $this.find('a:first').html(parentText)
         })
       }
       // If the active item should also be a clickable link, create one and put
       // it at the top of our menu.
       if (this.options.useActiveItemAsLink) {
-        this.$el.find('ul.dl-submenu').prepend(function() {
-          var parentli = $(this)
+        this.$submenus.prepend(function() {
+          var $activeItem = $(this)
             .parents('li:not(.dl-back):first')
             .find('a:first')
-          return (
-            '<li class="dl-parent"><a href="' +
-            parentli.attr('href') +
-            '">' +
-            parentli.text() +
-            '</a></li>'
+
+          var href = $activeItem.attr('href')
+          var text = $activeItem.text()
+          return $('<li class="dl-parent">').append(
+            '<a href="' + href + '">' + text + '</a>'
           )
         })
       }
@@ -138,7 +141,7 @@
         return false
       })
 
-      this.$menuitems.on('click.dlmenu', function(event) {
+      this.$menuItems.on('click.dlmenu', function(event) {
         event.stopPropagation()
 
         var $item = $(this),
@@ -271,7 +274,7 @@
     // resets the menu to its original state (first level of options)
     _resetMenu: function() {
       this.$menu.removeClass('dl-subview')
-      this.$menuitems.removeClass('dl-subview dl-subviewopen')
+      this.$menuItems.removeClass('dl-subview dl-subviewopen')
     },
   }
 
