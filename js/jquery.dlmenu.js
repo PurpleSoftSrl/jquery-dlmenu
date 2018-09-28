@@ -189,7 +189,7 @@
         }
       })
 
-      this.$back.on('click.dlmenu', function(event) {
+      this.$backs.on('click.dlmenu', function(event) {
         var $this = $(this),
           $submenu = $this.parents('ul.dl-submenu:first'),
           $item = $submenu.parent(),
