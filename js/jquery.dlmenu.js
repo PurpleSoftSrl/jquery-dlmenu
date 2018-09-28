@@ -1,6 +1,5 @@
 /**
- * jquery.dlmenu.js v1.0.1
- * http://www.codrops.com
+ * jquery-dlmenu
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
