@@ -180,7 +180,7 @@
               onAnimationEndFn.call()
             }
 
-            self.options.onLevelClick($item, $item.children('a:first').text())
+            self.options.onLevelClick($item, event)
           })
 
           return false
