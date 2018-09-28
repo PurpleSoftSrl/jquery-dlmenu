@@ -1,11 +1,11 @@
+# jquery-dlmenu
 
-ResponsiveMultiLevelMenu
-=========
+This fork contains the following changes:
 
-A responsive multi-level menu that shows its submenus in their own context, allowing for a space-saving presentation and usage.
+- Added `selectors: {}` option [(86cb002)](https://github.com/aleclarson/jquery-dlmenu/commit/86cb0025409d55f326121cb9f16090437db87464)
+  - `menu` (the root menu)
+  - `submenu` (nested menus)
+  - `menuItem` (menu contents)
+  - `trigger` (menu toggle)
 
-[article on Codrops](http://tympanus.net/codrops/?p=14753)
-
-[demo](http://tympanus.net/Development/ResponsiveMultiLevelMenu)
-
-Licensed under the MIT License
+- Default to no animations [(8039429)](https://github.com/aleclarson/jquery-dlmenu/commit/80394290b5ddd376ed4eee6e6205ead44ea972af)
