@@ -22,11 +22,6 @@
 
   // the options
   $.DLMenu.defaults = {
-    // classes for the animation effects
-    animationClasses: {
-      classin: 'dl-animate-in-1',
-      classout: 'dl-animate-out-1',
-    },
     // callback: click a link that has a sub menu
     // el is the link element (li); name is the level name
     onLevelClick: function(el, name) {
@@ -124,6 +119,8 @@
     },
     _initEvents: function() {
       var self = this
+      var animatedClasses =
+        self.options.animatedClasses || self.options.animationClasses
 
       this.$trigger.on('click.dlmenu', function() {
         if (self.open) {
@@ -160,7 +157,7 @@
             onAnimationEndFn = function() {
               self.$menu
                 .off(self.animEndEventName)
-                .removeClass(self.options.animationClasses.classout)
+                .removeClass(animatedClasses && animatedClasses.classout)
                 .addClass('dl-subview')
               $item
                 .addClass('dl-subviewopen')
@@ -171,8 +168,10 @@
             }
 
           setTimeout(function() {
-            $flyin.addClass(self.options.animationClasses.classin)
-            self.$menu.addClass(self.options.animationClasses.classout)
+            if (animatedClasses) {
+              $flyin.addClass(animatedClasses.classin)
+              self.$menu.addClass(animatedClasses.classout)
+            }
             if (self.supportAnimations) {
               self.$menu.on(self.animEndEventName, onAnimationEndFn)
             } else {
@@ -197,13 +196,15 @@
         var onAnimationEndFn = function() {
           self.$menu
             .off(self.animEndEventName)
-            .removeClass(self.options.animationClasses.classin)
+            .removeClass(animatedClasses && animatedClasses.classin)
           $flyin.remove()
         }
 
         setTimeout(function() {
-          $flyin.addClass(self.options.animationClasses.classout)
-          self.$menu.addClass(self.options.animationClasses.classin)
+          if (animatedClasses) {
+            $flyin.addClass(animatedClasses.classout)
+            self.$menu.addClass(animatedClasses.classin)
+          }
           if (self.supportAnimations) {
             self.$menu.on(self.animEndEventName, onAnimationEndFn)
           } else {
