@@ -11,8 +11,8 @@
   'use strict'
 
   // global
-  var Modernizr = window.Modernizr,
-    $window = $('window')
+  var Modernizr = window.Modernizr
+  var $window = $(window)
 
   $.DLMenu = function(options, element) {
     this.$el = $(element)
