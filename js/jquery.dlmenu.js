@@ -261,8 +261,9 @@
         })
       }
       if (this.options.clickOutsideToClose) {
-        $window.one('click.dlmenu', function() {
-          if (!self.$el[0].contains(this)) self._closeMenu()
+        $window.one('click.dlmenu', function(event) {
+          var el = self.$el.get(0)
+          el.contains(event.target) || self._closeMenu()
         })
       }
       this.$menu
