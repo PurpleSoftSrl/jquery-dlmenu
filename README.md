@@ -19,9 +19,9 @@
 
 This fork contains the following changes:
 
-- Added `scrollBodyToClose` option [()]()
+- Added `scrollBodyToClose` option [(bad8ae2)](https://github.com/aleclarson/jquery-dlmenu/commit/bad8ae2515e3e49ad1b2242c812666731d860cf6)
 
-- Added `clickOutsideToClose` option [()]()
+- Added `clickOutsideToClose` option [(bad8ae2)](https://github.com/aleclarson/jquery-dlmenu/commit/bad8ae2515e3e49ad1b2242c812666731d860cf6)
 
 - Added `selectors: {}` option [(86cb002)](https://github.com/aleclarson/jquery-dlmenu/commit/86cb0025409d55f326121cb9f16090437db87464)
   - `menu` (the root menu)
