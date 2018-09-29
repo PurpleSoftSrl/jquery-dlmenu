@@ -219,18 +219,19 @@
         return false
       })
     },
-    closeMenu: function() {
+    closeMenu: function(callback) {
       if (this.open) {
-        this._closeMenu()
+        this._closeMenu(callback)
       }
     },
-    _closeMenu: function() {
+    _closeMenu: function(callback) {
       var self = this,
         onTransitionEndFn = function() {
           self.$menu.off(self.transEndEventName)
           if (self.options.resetOnClose) {
             self._resetMenu()
           }
+          callback && callback()
         }
 
       // Remove the close listeners.
@@ -278,6 +279,19 @@
     _resetMenu: function() {
       this.$menu.removeClass('dl-subview')
       this.$menuItems.removeClass('dl-subview dl-subviewopen')
+    },
+    destroy: function() {
+      this.closeMenu(function() {
+        // Remove event listeners
+        var triggerEvent = this.options.triggerOn || 'click'
+        this.$trigger.off(triggerEvent + '.dlmenu')
+        this.$menuItems.off('click.dlmenu')
+        this.$backs.off('click.dlmenu')
+        this.$menu.off(this.animEndEventName).off(this.transEndEventName)
+
+        // Remove DLMenu instance
+        this.$el.removeData('dlmenu')
+      })
     },
   }
 
