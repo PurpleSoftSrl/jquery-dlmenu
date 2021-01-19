@@ -1,0 +1,19 @@
+{
+  "name": "jquery-dlmenu",
+  "version": "1.0.0",
+  "description": "1. Mark sub-menu elements with `.dl-submenu`\r 2. Call `dlmenu` on any jQuery object",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PurpleSoftSrl/jquery-dlmenu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PurpleSoftSrl/jquery-dlmenu/issues"
+  },
+  "homepage": "https://github.com/PurpleSoftSrl/jquery-dlmenu#readme"
+}
